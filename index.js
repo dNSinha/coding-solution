@@ -13,7 +13,7 @@ const getLibraries = async (filePath) => {
         const name = filePath?.split('/')?.slice(-1)?.toString();
 
         // Create a library node for the tree.
-        let library = {
+        const library = {
             name,
             path: filePath?.split(name)[0]?.toString(),  //Since path will always be eveything else than fileName (alternative pop())
             children: [],
@@ -25,19 +25,19 @@ const getLibraries = async (filePath) => {
 
                 // Get the child path from the import statement.
                 // Trim to remove spaces first. Removing import and keeping rest path.
-                let childRelativePath = line?.trim().split(" ")[1];
-                let childFileName = childRelativePath?.split('./')[1];
+                const childRelativePath = line?.trim().split(" ")[1];
+                const childFileName = childRelativePath?.split('./')[1];
                 let childFilePath = library?.path + childFileName?.replace(';', '');
 
                 if (line?.includes("import") && line?.includes("../")) {
                     // change path to root depending upon number of ""../"
-                    childRoot = library?.path?.split('/');
-                    childRootPath = childRoot?.slice(0, childRoot?.length - 2);
+                    const childRoot = library?.path?.split('/');
+                    const childRootPath = childRoot?.slice(0, childRoot?.length - 2);
                     childFilePath = childRootPath?.join('/') + '/' + childFileName?.replace(';', '');
                 }
 
                 // Recursively calling for children
-                let children = await getLibraries(childFilePath);
+                const children = await getLibraries(childFilePath);
 
                 // Adding children to library
                 library?.children?.push(children);
@@ -55,7 +55,7 @@ const print = (library, depth = 0) => {
         console.log(" ".repeat(depth * 4) + library.name);
 
         if (library.children) {
-            for (children of library.children) {
+            for (const children of library.children) {
                 print(children, depth + 1)
             }
         }
@@ -67,7 +67,7 @@ const print = (library, depth = 0) => {
 const readFile = async (filePath) => {
     try {
         // Get the file contents.
-        let fileContents = await fs.promises.readFile(filePath);
+        const fileContents = await fs.promises.readFile(filePath);
 
         // Convert the file contents to a string.
         return fileContents.toString();
@@ -79,8 +79,8 @@ const readFile = async (filePath) => {
 // Main function.
 const main = async () => {
     // Get the path to the root program.
-    let rootPath = path + 'root.prog';
-    let tree = await getLibraries(rootPath);
+    const rootPath = path + 'root.prog';
+    const tree = await getLibraries(rootPath);
 
     // Print the tree.
     print(tree);

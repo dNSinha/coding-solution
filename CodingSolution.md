@@ -5,7 +5,7 @@ This is a coding challenge from Keysight Technologies Deutschland GmbH.
 
 ## Solution
 
-This solution is degined using pure Javascript and recusrion algorithm. The getLibraries function and print function is used recursively to list libraries and printing th eoutput respectively. There ars also some assumptions made which are listed below.
+This solution is degined using pure Javascript and recusrion algorithm. The getLibraries function and print function is used recursively to list libraries and printing the output respectively. There are also some assumptions made which are listed below.
 
 1. The provided file path is relative path, which are valid and accessible.
 2. There is no circular imports to avoid infinite loop.
